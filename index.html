@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fried Chicken</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-image: url('Background\ ayam.jpeg'); /* Ganti dengan URL gambar Anda */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        header {
+            background-color: rgba(255, 87, 34, 0.9); /* Tambahkan transparansi */
+            padding: 1.5rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 112, 67, 0.9); /* Tambahkan transparansi */
+            padding: 1rem 2rem;
+            gap: 1.5rem; /* Tambahkan jarak antar item */
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 8px 8px; /* Membuat sudut bawah melengkung */
+        }
+
+        nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #fffde7;
+            text-decoration: underline;
+        }
+
+        main {
+            background-color: rgba(255, 255, 255, 0.9); /* Tambahkan transparansi */
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        th {
+            background-color: #ff5722;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        button {
+            padding: 0.7rem 1.5rem;
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #f4511e;
+        }
+
+        input, select {
+            padding: 0.7rem;
+            margin-bottom: 1.5rem;
+            width: calc(100% - 1.4rem);
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #ff5722;
+            outline: none;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.7rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-list h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .section h2 {
+            color: #ff5722;
+            font-size: 1.8rem;
+        }
+
+        .menu-list {
+            background-color: #ffcc80;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .menu-list table th, .menu-list table td {
+            text-align: center;
+        }
+
+        .menu-list table {
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                margin: 0.5rem 0;
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            th, td {
+                font-size: 1rem;
+            }
+
+            button {
+                font-size: 1rem;
+                padding: 0.6rem 1.2rem;
+            }
+
+            input, select {
+                font-size: 1rem;
+            }
+
+            .menu-list h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fried Chicken</h1>
+    </header>
+    <nav>
+        <a href="#" onclick="showSection('pesanan')">Pesanan</a>
+        <a href="#" onclick="showSection('inputStok')">Input Stok Barang</a>
+        <a href="#" onclick="showSection('stokBarang')">Stok Barang</a>
+        <a href="#" onclick="showSection('historiMasuk')">Histori Barang Masuk</a>
+        <a href="#" onclick="showSection('historiKeluar')">Histori Barang Keluar</a>
+        <a href="#" onclick="showSection('hasilPenjualan')">Hasil Penjualan</a>
+    </nav>
+    <main>
+        <section id="pesanan" class="section active">
+            <h2>Pesanan Customer</h2>
+            <div class="menu-list">
+                <h3>Menu dan Harga</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Menu</th>
+                            <th>Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dada</td>
+                            <td>13,000</td>
+                        </tr>
+                        <tr>
+                            <td>Paha Atas</td>
+                            <td>13,000</td>
+                        </tr>
+                        <tr>
+                            <td>Paha Bawah</td>
+                            <td>11,000</td>
+                        </tr>
+                        <tr>
+                            <td>Sayap</td>
+                            <td>8,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="pesananContainer">
+                <form id="pesananForm">
+                    <label for="item">Item:</label>
+                    <select id="item" required>
+                        <option value="Dada">Dada</option>
+                        <option value="Paha Atas">Paha Atas</option>
+                        <option value="Paha Bawah">Paha Bawah</option>
+                        <option value="Sayap">Sayap</option>
+                    </select>
+
+                    <label for="jumlah">Jumlah:</label>
+                    <input type="number" id="jumlah" required>
+
+                    <button type="button" onclick="tambahPesanan()">Tambah</button>
+                </form>
+            </div>
+            <table id="pesananTable">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <!-- Input Stok Barang Section -->
+        <section id="inputStok" class="section">
+            <form id="stokForm" onsubmit="event.preventDefault(); tambahStok();">
+                <label for="barang">Pilih Barang:</label>
+                <select id="barang">
+                    <option value="Dada">Dada</option>
+                    <option value="Paha Atas">Paha Atas</option>
+                    <option value="Paha Bawah">Paha Bawah</option>
+                    <option value="Sayap">Sayap</option>
+                </select>
+                <label for="stok">Jumlah Stok:</label>
+                <input type="number" id="stok" required>
+                <button type="submit">Tambah Stok</button>
+            </form>
+        </section>
+        
+
+        <!-- Stok Barang Section -->
+        <section id="stokBarang" class="section">
+            <h2>Stok Barang</h2>
+            <div id="stokTables">
+                <h3>Stok Dada</h3>
+                <table id="stokDadaTable">
+                    <thead>
+                        <tr><th>Jumlah</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <h3>Stok Paha Atas</h3>
+                <table id="stokPahaAtasTable">
+                    <thead>
+                        <tr><th>Jumlah</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <h3>Stok Paha Bawah</h3>
+                <table id="stokPahaBawahTable">
+                    <thead>
+                        <tr><th>Jumlah</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <h3>Stok Sayap</h3>
+                <table id="stokSayapTable">
+                    <thead>
+                        <tr><th>Jumlah</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="historiMasuk" class="section">
+            <h2>Histori Barang Masuk</h2>
+            <table id="historiMasukTable">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Nama Barang</th>
+                        <th>Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section id="historiKeluar" class="section">
+            <h2>Histori Barang Keluar</h2>
+            <table id="historiKeluarTable">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Nama Barang</th>
+                        <th>Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section id="hasilPenjualan" class="section">
+            <h2>Hasil Penjualan</h2>
+            <table id="penjualanTable">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Jumlah Terjual</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
+
+        function tambahPesanan() {
+            const item = document.getElementById('item').value;
+            const jumlah = parseInt(document.getElementById('jumlah').value);
+            const prices = {
+                'Dada': 13000,
+                'Paha Atas': 13000,
+                'Paha Bawah': 11000,
+                'Sayap': 8000
+            };
+        
+            if (kurangiStok(item, jumlah)) {
+                const harga = prices[item] * jumlah;
+        
+                // Tambahkan ke tabel pesanan
+                const tbody = document.querySelector('#pesananTable tbody');
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${item}</td><td>${jumlah}</td><td>${harga.toLocaleString('id-ID')}</td>`;
+                tbody.appendChild(row);
+        
+                // Tambahkan ke histori barang keluar
+                const historiTbody = document.querySelector('#historiKeluarTable tbody');
+                const historiRow = document.createElement('tr');
+                const tanggal = new Date().toLocaleDateString();
+                historiRow.innerHTML = `<td>${tanggal}</td><td>${item}</td><td>${jumlah}</td>`;
+                historiTbody.appendChild(historiRow);
+        
+                // Tambahkan ke hasil penjualan
+                const penjualanTbody = document.querySelector('#penjualanTable tbody');
+                const existingRow = Array.from(penjualanTbody.rows).find(row => row.cells[0].textContent === item);
+                if (existingRow) {
+                    const currentJumlah = parseInt(existingRow.cells[1].textContent);
+                    const currentTotal = parseInt(existingRow.cells[2].textContent.replace(/\D/g, ''));
+                    existingRow.cells[1].textContent = currentJumlah + jumlah;
+                    existingRow.cells[2].textContent = (currentTotal + harga).toLocaleString('id-ID');
+                } else {
+                    const penjualanRow = document.createElement('tr');
+                    penjualanRow.innerHTML = `<td>${item}</td><td>${jumlah}</td><td>${harga.toLocaleString('id-ID')}</td>`;
+                    penjualanTbody.appendChild(penjualanRow);
+                }
+        
+                // Reset form
+                document.getElementById('pesananForm').reset();
+            } else {
+                alert('Stok tidak mencukupi!');
+            }
+        }
+
+        function kurangiStok(item, jumlah) {
+            const tableMap = {
+                'Dada': 'stokDadaTable',
+                'Paha Atas': 'stokPahaAtasTable',
+                'Paha Bawah': 'stokPahaBawahTable',
+                'Sayap': 'stokSayapTable'
+            };
+        
+            const tableId = tableMap[item];
+            const tbody = document.querySelector(`#${tableId} tbody`);
+            if (tbody.rows.length > 0) {
+                const stokRow = tbody.rows[0];
+                const currentStok = parseInt(stokRow.cells[0].textContent);
+                if (currentStok >= jumlah) {
+                    stokRow.cells[0].textContent = currentStok - jumlah;
+                    if (currentStok - jumlah === 0) {
+                        tbody.removeChild(stokRow); // Hapus baris jika stok menjadi nol
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function tambahStok() {
+            const barang = document.getElementById('barang').value;
+            const stok = parseInt(document.getElementById('stok').value);
+
+            const tableMap = {
+                'Dada': 'stokDadaTable',
+                'Paha Atas': 'stokPahaAtasTable',
+                'Paha Bawah': 'stokPahaBawahTable',
+                'Sayap': 'stokSayapTable'
+            };
+
+            const tableId = tableMap[barang];
+            const tbody = document.querySelector(`#${tableId} tbody`);
+
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${stok}</td>`;
+            tbody.appendChild(row);
+
+            const historiTbody = document.querySelector('#historiMasukTable tbody');
+            const historiRow = document.createElement('tr');
+            const tanggal = new Date().toLocaleDateString();
+            historiRow.innerHTML = `<td>${tanggal}</td><td>${barang}</td><td>${stok}</td>`;
+            historiTbody.appendChild(historiRow);
+
+            document.getElementById('stokForm').reset();
+        }
+        
+    </script>
+</body>
+</html>
